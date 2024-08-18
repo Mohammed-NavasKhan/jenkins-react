@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+    tools { nodejs "nodejs" }
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('Clean up'){
+            steps {
+                deleteDir()
+            }
+        }
+        stage('Clone Repo'){
+            steps {
+                sh 'git clone https://github.com/Mohammed-NavasKhan/Jenkins.git'
+            }
+        }
+        stage('Install Dependencies') {
+            steps {
+                dir('Reactjs') {
+                    sh 'npm install'
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'npm build'
+            }
+        }
+
+    }
+}
