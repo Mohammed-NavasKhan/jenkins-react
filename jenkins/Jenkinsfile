@@ -12,19 +12,28 @@ pipeline {
         }
         stage('Clone Repo'){
             steps {
-                sh 'git clone https://github.com/Mohammed-NavasKhan/Jenkins.git'
+                sh 'git clone https://github.com/Mohammed-NavasKhan/jenkins-react.git'
             }
         }
         stage('Install Dependencies') {
             steps {
-                dir('Reactjs') {
+                dir('jenkins-react') {
                     sh 'npm install'
+                }
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                dir('jenkins-react') {
+                    sh 'npm run test'
                 }
             }
         }
         stage('Build') {
             steps {
-                sh 'npm build'
+                dir('jenkins-react') {
+                    sh 'npm run build'
+                }
             }
         }
 
